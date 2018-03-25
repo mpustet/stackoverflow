@@ -26,6 +26,7 @@ public class StackOverflowControllerIT {
 				.get("/jsonFile")
 				.then()
 				.statusCode(200)
+				.body("al.findIndexOf { it.aid == 1461 }", is(2))
 				.body("al.find { it.aid == 1461 }._c", is("Gurgaon1"))
 				.body("al.find { it.aid == 1461 }.pc", is("122003"));
 	}
