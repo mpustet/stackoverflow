@@ -1,0 +1,13 @@
+language: java
+
+sudo: required # required by Docker
+
+install: true
+
+script: mvn clean verify
+
+jdk:
+  - oraclejdk8
+
+services:
+  - docker
