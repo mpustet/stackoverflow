@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
+import com.fasterxml.jackson.datatype.guava.GuavaModule;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -72,5 +73,14 @@ public class LearningTest {
 				Credentials.class);
 		assertThat(credentials.getUsername()).isEqualTo("user");
 		assertThat(credentials.getPassword()).isEqualTo("pass");
+	}
+
+	@Test
+	public void guava() throws JsonParseException, JsonMappingException, IOException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.registerModule(new GuavaModule());
+
+		GuavaBean optLong = objectMapper.readValue("{\"abc\":9}", GuavaBean.class);
+		assertThat(optLong.getAbc().get()).isEqualTo(9);
 	}
 }
