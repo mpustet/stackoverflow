@@ -1,6 +1,7 @@
 package de.mle.stackoverflow;
 
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.hasSize;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +29,10 @@ public class StackOverflowControllerIT {
 				.statusCode(200)
 				.body("al.findIndexOf { it.aid == 1461 }", is(2))
 				.body("al.find { it.aid == 1461 }._c", is("Gurgaon1"))
-				.body("al.find { it.aid == 1461 }.pc", is("122003"));
+				.body("al.find { it.aid == 1461 }.pc", is("122003"))
+				.body("al", hasSize(4))
+				.body("al[0].aid", is(1464));
+		// .body("al", is(Arrays.asList("…")));
 	}
 
 }
