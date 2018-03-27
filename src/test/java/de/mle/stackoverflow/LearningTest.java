@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.mockito.hamcrest.MockitoHamcrest.argThat;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,8 +15,10 @@ import java.util.stream.Collectors;
 import org.junit.Test;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
@@ -95,5 +98,23 @@ public class LearningTest {
 		// when(service.doSomething(argThat)).thenReturn(new ArrayList<>());
 
 		assertThat(service.doSomething(Arrays.asList(9l))).isEqualTo(new ArrayList<>());
+	}
+
+	@Test
+	public void jsonNode() throws JsonProcessingException, IOException {
+		ObjectMapper map = new ObjectMapper();
+		JsonNode root = map.readTree(new File(LearningTest.class.getResource("/jsonNode.json").getFile()));
+		List<MyPOJO> myList = new ArrayList<MyPOJO>();
+
+		for (JsonNode each : root) {
+			MyPOJO myPOJO = new MyPOJO();
+			myPOJO = map.readValue(each.toString(), MyPOJO.class);
+			assertThat(myPOJO.getNationality()).isEqualTo("US");
+			myList.add(myPOJO);
+		}
+		for (MyPOJO p : myList) {
+			JsonNode node = map.convertValue(p, JsonNode.class);
+			assertThat(node.get("nationality").asText()).isEqualTo("US");
+		}
 	}
 }
