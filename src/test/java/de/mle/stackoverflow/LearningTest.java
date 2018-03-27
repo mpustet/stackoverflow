@@ -1,8 +1,6 @@
 package de.mle.stackoverflow;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.CoreMatchers.hasItem;
-import static org.mockito.hamcrest.MockitoHamcrest.argThat;
 
 import java.io.File;
 import java.io.IOException;
@@ -91,10 +89,9 @@ public class LearningTest {
 	}
 
 	@Test
-	@SuppressWarnings("unused")
 	public void hamcrest() {
 		SomeService service = new SomeService();
-		Iterable<? super Long> argThat = argThat(hasItem(new GuavaBean()));
+		// Iterable<? super Long> argThat = argThat(hasItem(new GuavaBean()));
 		// when(service.doSomething(argThat)).thenReturn(new ArrayList<>());
 
 		assertThat(service.doSomething(Arrays.asList(9l))).isEqualTo(new ArrayList<>());
