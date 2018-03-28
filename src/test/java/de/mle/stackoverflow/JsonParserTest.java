@@ -25,7 +25,9 @@ public class JsonParserTest {
 		// routes[*].legs[*].steps[*].polyline.points
 		Iterator<JsonNode> routes = actualObj.get("routes").elements();
 		while (routes.hasNext()) {
-			Iterator<JsonNode> legs = routes.next().get("legs").elements();
+			JsonNode route = routes.next();
+			String routePoints = route.get("overview_polyline").get("points").asText();
+			Iterator<JsonNode> legs = route.get("legs").elements();
 			while (legs.hasNext()) {
 				Iterator<JsonNode> steps = legs.next().get("steps").elements();
 				while (steps.hasNext()) {
