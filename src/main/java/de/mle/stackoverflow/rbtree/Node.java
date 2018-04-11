@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class Node {
 	private Integer value;
 	private Color color;
+	private Node parent;
 	private Node left;
 	private Node right;
 }
