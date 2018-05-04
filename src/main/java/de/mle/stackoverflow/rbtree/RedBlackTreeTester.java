@@ -1,5 +1,7 @@
 package de.mle.stackoverflow.rbtree;
 
+import java.util.Optional;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -53,7 +55,7 @@ public class RedBlackTreeTester {
         Node root = tree.getRoot();
         int blackDepth = 0;
 
-        return  getBlackDepthOfNode(root, blackDepth);
+        return  getBlackDepthOfNode(root, blackDepth).orElse(0);
     }
 
 
@@ -79,19 +81,20 @@ public class RedBlackTreeTester {
         return true;
     }
 
-    private int getBlackDepthOfNode(Node node, int blackDepth){
+    private Optional<Integer> getBlackDepthOfNode(Node node, int blackDepth){
         if (node == null)
-            return blackDepth;
+            return Optional.of(blackDepth);
 
         if (node.getColor() == Color.BLACK) {
             blackDepth = blackDepth + 1;
         }
 
-        int blackDepthLeft = getBlackDepthOfNode(node.getLeft(), blackDepth);
-        int blackDepthRight = getBlackDepthOfNode(node.getRight(), blackDepth);
+        Optional<Integer> blackDepthLeft = getBlackDepthOfNode(node.getLeft(), blackDepth);
+        Optional<Integer> blackDepthRight = getBlackDepthOfNode(node.getRight(), blackDepth);
 
-        if (blackDepthLeft != blackDepthRight) {
+        if (!blackDepthLeft.equals(blackDepthRight)) {
             log.warn("Black depths are not the same on all paths!");
+            return Optional.empty();
         }
         return blackDepthLeft;
     }
@@ -115,10 +118,10 @@ public class RedBlackTreeTester {
 
     private boolean allPathsHaveSameBlackDepth(Node root){
 
-        int blackDepthLeft = getBlackDepthOfNode(root.getLeft(), 0);
-        int blackDepthRight = getBlackDepthOfNode(root.getRight(), 0);
+        Optional<Integer> blackDepthLeft = getBlackDepthOfNode(root.getLeft(), 0);
+        Optional<Integer> blackDepthRight = getBlackDepthOfNode(root.getRight(), 0);
 
-        return blackDepthLeft == blackDepthRight;
+        return blackDepthLeft.isPresent() && blackDepthRight.isPresent() && blackDepthLeft.equals(blackDepthRight);
     }
 
 }
