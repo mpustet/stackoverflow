@@ -249,7 +249,7 @@ public class RedBlackTreeTesterTest {
     }
 
     @Test
-    public void checkComplexBlackDepthBlackRootNew() {
+    public void testDifferentBlackDepths() {
 
         Node root = null;
         Node leftOfRoot = null;
@@ -272,7 +272,7 @@ public class RedBlackTreeTesterTest {
     }
 
     @Test
-    public void checkComplexBlackDepthBlackRootNewNew() {
+    public void testDifferentBlackDepthsVariation() {
 
         Node root = null;
         Node leftOfRoot = null;
