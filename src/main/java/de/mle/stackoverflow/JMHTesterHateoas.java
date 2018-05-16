@@ -12,27 +12,31 @@ import org.openjdk.jmh.annotations.Measurement;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
+import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.runner.RunnerException;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.hateoas.Link;
 
 @State(Scope.Benchmark)
 @Warmup(iterations = 5, time = 100, timeUnit = TimeUnit.MILLISECONDS)
 @Measurement(iterations = 5, time = 100, timeUnit = TimeUnit.MILLISECONDS)
 @Fork(warmups = 1, value = 1)
 public class JMHTesterHateoas {
+	private static final int ITERATIONS = 2_500;
+
 	public static void main(String[] args) throws IOException, RunnerException {
 		org.openjdk.jmh.Main.main(args);
 	}
 
-	{
-		RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(new MockHttpServletRequest()));
+	@Benchmark
+	public void linkPlain(Blackhole blackhole) throws IOException {
+		for (int i = 0; i < ITERATIONS; i++)
+			blackhole.consume(linkTo(methodOn(StackOverflowController.class).link("a b")).withSelfRel().getHref());
 	}
 
 	@Benchmark
-	public void linkPlain() throws IOException {
-		String url = linkTo(methodOn(StackOverflowController.class).link("a b")).withSelfRel().getHref();
-		System.out.println("=== " + url);
+	public void linkWithExpand(Blackhole blackhole) throws IOException {
+		Link link = linkTo(methodOn(StackOverflowController.class).link(null)).withSelfRel();
+		for (int i = 0; i < ITERATIONS; i++)
+			blackhole.consume(link.expand("a b").getHref());
 	}
 }
