@@ -28,7 +28,7 @@ public class RedBlackTreeTester {
             return false;
         }
 
-        return valuesAndColorsAreWellOrdered(root) && allPathsHaveSameBlackDepth(root);
+        return valuesAndColorsAreWellOrdered(root) && getBlackDepthOfNode(root, 0).isPresent();
     }
 
     /**
@@ -115,13 +115,4 @@ public class RedBlackTreeTester {
         if (heightLeft >= heightRight) return heightLeft;
         else return heightRight;
     }
-
-    private boolean allPathsHaveSameBlackDepth(Node root){
-
-        Optional<Integer> blackDepthLeft = getBlackDepthOfNode(root.getLeft(), 0);
-        Optional<Integer> blackDepthRight = getBlackDepthOfNode(root.getRight(), 0);
-
-        return blackDepthLeft.isPresent() && blackDepthRight.isPresent() && blackDepthLeft.equals(blackDepthRight);
-    }
-
 }
