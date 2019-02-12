@@ -1,4 +1,4 @@
-# Stack Overflow showcasesx
+# Stack Overflow showcases
 For illustrating the solution of Stack Overflow tasks.
 
 [![Build

@@ -17,8 +17,8 @@ import org.openjdk.jmh.runner.RunnerException;
 import org.springframework.hateoas.Link;
 
 @State(Scope.Benchmark)
-@Warmup(iterations = 5, time = 1000, timeUnit = TimeUnit.MILLISECONDS)
-@Measurement(iterations = 5, time = 1000, timeUnit = TimeUnit.MILLISECONDS)
+@Warmup(iterations = 5, time = 500, timeUnit = TimeUnit.MILLISECONDS)
+@Measurement(iterations = 5, time = 500, timeUnit = TimeUnit.MILLISECONDS)
 @Fork(warmups = 1, value = 1)
 public class JMHTesterHateoas {
 	private static final int ITERATIONS = 2_500;
