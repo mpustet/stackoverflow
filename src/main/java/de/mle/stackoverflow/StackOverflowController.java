@@ -24,8 +24,8 @@ public class StackOverflowController {
 	}
 
 	@GetMapping("/deserialize")
-	public ResponseEntity<String> link() {
-		String content = "{\"projectId\":9,\"workspaceId\":74,\"projectName\":\"Test Project 1dea0d3e-4bba-4cc2-ace3-77dede4990d5\",\"phases\":[],\"estimateType\":{\"name\":\"DAY\",\"displayName\":\"Days\",\"id\":1}}";
+	public ResponseEntity<String> getProject() {
+		String content = "{\"projectId\":9,\"workspaceId\":74,\"projectName\":\"Test Project 1dea0d3e-4bba-4cc2-ace3-77dede4990d5\",\"phases\":[],\"estimateType\":{\"name\":\"WEEK\",\"displayName\":\"Weeks\",\"id\":2}}";
 		return ResponseEntity.ok(content);
 	}
 }

@@ -1,5 +1,6 @@
 package de.mle.stackoverflow;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
 
@@ -10,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import de.mle.stackoverflow.jackson.Project;
+import de.mle.stackoverflow.jackson.WorkPackageEstimateType;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 
@@ -37,14 +40,13 @@ public class StackOverflowControllerIT {
 
 	@Test
 	public void restAssuredDeserialize() {
-		RestAssured.given()
+		Project project = RestAssured.given()
 				.baseUri("http://localhost:" + port)
 				.accept(ContentType.JSON)
 				.get("/deserialize")
-				.then()
-				.statusCode(200)
-				.body("estimateType.name", is("DAY"))
-				.body("estimateType.displayName", is("Days"))
-				.body("estimateType.id", is(1));
+				.body().as(Project.class);
+		
+		assertThat(project.getEstimateType()).isEqualTo(WorkPackageEstimateType.WEEK);
+		assertThat(project.getEstimateType().getDisplayName()).isEqualTo("Weeks");
 	}
 }

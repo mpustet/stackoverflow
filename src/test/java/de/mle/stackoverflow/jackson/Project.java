@@ -2,6 +2,9 @@ package de.mle.stackoverflow.jackson;
 
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Project {
 
 	@NotNull
