@@ -35,4 +35,16 @@ public class StackOverflowControllerIT {
 		// .body("al", is(Arrays.asList("…")));
 	}
 
+	@Test
+	public void restAssuredDeserialize() {
+		RestAssured.given()
+				.baseUri("http://localhost:" + port)
+				.accept(ContentType.JSON)
+				.get("/deserialize")
+				.then()
+				.statusCode(200)
+				.body("estimateType.name", is("DAY"))
+				.body("estimateType.displayName", is("Days"))
+				.body("estimateType.id", is(1));
+	}
 }
