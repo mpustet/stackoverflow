@@ -8,7 +8,7 @@ services:
   - docker
 
 script:
-  - docker-compose up
+  - docker-compose up -d
   - mvn clean verify
 
 jdk:
