@@ -9,7 +9,7 @@ services:
 
 script:
   - docker-compose build
-  - docker-compose run test
+  - docker-compose run redis
   - mvn clean verify
 
 jdk:
