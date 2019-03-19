@@ -4,10 +4,13 @@ sudo: required # required by Docker
 
 install: true
 
-script: mvn clean verify
+services:
+  - docker
+
+script:
+  - docker-compose build
+  - docker-compose run test
+  - mvn clean verify
 
 jdk:
   - oraclejdk11
-
-services:
-  - docker
