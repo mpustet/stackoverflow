@@ -8,8 +8,7 @@ services:
   - docker
 
 script:
-  - docker-compose build
-  - docker-compose run redis
+  - docker-compose up
   - mvn clean verify
 
 jdk:
