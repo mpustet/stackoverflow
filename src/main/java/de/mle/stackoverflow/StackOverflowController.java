@@ -2,10 +2,14 @@ package de.mle.stackoverflow;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,4 +32,9 @@ public class StackOverflowController {
 		String content = "{\"projectId\":9,\"workspaceId\":74,\"projectName\":\"Test Project 1dea0d3e-4bba-4cc2-ace3-77dede4990d5\",\"phases\":[],\"estimateType\":{\"name\":\"WEEK\",\"displayName\":\"Weeks\",\"id\":2}}";
 		return ResponseEntity.ok(content);
 	}
+
+    @PostMapping(path = "/contract", consumes = MediaType.APPLICATION_JSON_VALUE)
+    private ResponseEntity postMessage(@RequestBody List<MessageContract> contract) {
+        return ResponseEntity.ok(contract);
+    }
 }
