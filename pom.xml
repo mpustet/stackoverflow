@@ -34,6 +34,14 @@
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 		</dependency>
@@ -131,6 +139,12 @@
 			<artifactId>guava</artifactId>
 			<version>24.1-jre</version>
 		</dependency>
+		<dependency>
+			<groupId>org.awaitility</groupId>
+			<artifactId>awaitility</artifactId>
+			<version>3.1.6</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -141,6 +155,51 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-failsafe-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.28.0</version>
+				<configuration>
+					<showLogs>true</showLogs>
+					<verbose>true</verbose>
+					<removeVolumes>true</removeVolumes>
+					<allContainers>true</allContainers>
+					<images>
+						<image>
+							<name>elasticsearch:6.6.2</name>
+							<alias>elasticsearch</alias>
+							<run>
+								<ports>
+									<port>9200:9200</port>
+									<port>9300:9300</port>
+								</ports>
+								<env>
+									<ES_JAVA_OPTS>-Xms512m -Xmx512m</ES_JAVA_OPTS>
+									<cluster.name>docker-cluster</cluster.name>
+									<discovery.type>single-node</discovery.type>
+								</env>
+							</run>
+						</image>
+					</images>
+				</configuration>
+				<executions>
+					<execution>
+						<id>prepare-containers</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>stop</goal>
+							<goal>start</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>remove-containers</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>stop</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
