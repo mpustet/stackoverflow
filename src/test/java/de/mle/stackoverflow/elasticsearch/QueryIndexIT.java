@@ -21,7 +21,10 @@ public class QueryIndexIT {
 
     @Test
     public void queryRepo() {
-        assertThat(template.indexExists(Product.class)).isTrue();
+        Awaitility.await()
+                .atMost(Duration.TEN_SECONDS)
+                .pollInterval(Duration.ONE_SECOND)
+                .untilAsserted(() -> assertThat(template.indexExists(Product.class)).isTrue());
 
         Product savedProduct = repo.save(new Product(null, "the name", "n/a"));
         Product foundProduct = repo.findByName("the name");
