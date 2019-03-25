@@ -178,9 +178,10 @@
 									<ES_JAVA_OPTS>-Xms512m -Xmx512m</ES_JAVA_OPTS>
 									<cluster.name>docker-cluster</cluster.name>
 									<discovery.type>single-node</discovery.type>
-									<transport.host>127.0.0.1</transport.host>
-									<xpack.security.enabled>false</xpack.security.enabled>
 								</env>
+								<wait>
+									<time>10000</time>
+								</wait>
 							</run>
 						</image>
 					</images>

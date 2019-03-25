@@ -22,7 +22,7 @@ public class QueryIndexIT {
     @Test
     public void queryRepo() {
         Awaitility.await()
-                .atMost(Duration.ONE_MINUTE)
+                .atMost(Duration.TEN_SECONDS)
                 .pollInterval(Duration.ONE_SECOND)
                 .untilAsserted(() -> assertThat(template.indexExists(Product.class)).isTrue());
 
