@@ -2,6 +2,7 @@ package de.mle.stackoverflow.assertj;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.junit.Test;
 
 import java.util.List;
@@ -17,6 +18,37 @@ public class AssertJFeatureTest {
                     assertThat(p.getAddress().getCity()).withFailMessage("expected city: " + "Caseros1").isEqualTo("Caseros1");
                     assertThat(p.getAddress().getCountryName()).isEqualTo("Argentina");
                 });
+    }
+
+
+    @Test
+    public void assertInnerPropertyInList() {
+        List<Office> officesWithEmptyOne = List.of(
+                new Office(List.of(new Employee(), new Employee())),
+                new Office(List.of(new Employee())),
+                new Office(List.of()));
+
+        List<Office> offices = List.of(
+                new Office(List.of(new Employee(), new Employee())),
+                new Office(List.of(new Employee())));
+
+        // passes
+        assertThat(offices).allSatisfy(office -> assertThat(office.getEmployee()).isNotEmpty());
+
+        // fails
+        // assertThat(officesWithEmptyOne).allSatisfy(office -> assertThat(office.getEmployee()).isNotEmpty());
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public class Office {
+        private List<Employee> employee;
+    }
+
+    @Data
+    @AllArgsConstructor
+    public class Employee {
     }
 
     @Data
