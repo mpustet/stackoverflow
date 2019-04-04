@@ -19,7 +19,7 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-public class IncludeOnlyOneField {
+public class IncludeOnlyOneFieldTest {
     @Test
     public void includeOnlyOneField() throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
