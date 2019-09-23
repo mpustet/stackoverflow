@@ -24,4 +24,9 @@ public class ListsAndFluxes {
                 .flatMap(list -> Flux.fromIterable(list))
                 .subscribe(item -> log.warn("Item in flux {}", item));
     }
+
+    @Test
+    public void onNull() {
+        Mono.justOrEmpty(null).log();
+    }
 }
