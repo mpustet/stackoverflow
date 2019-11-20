@@ -1,13 +1,29 @@
-redis:
-  image: redis
-  expose:
-    - 6379
-elasticsearch:
-  image: elasticsearch:6.6.2
-  ports:
-    - "9200:9200"
-    - "9300:9300"
-  environment:
-    - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    - "cluster.name=docker-cluster"
-    - "discovery.type=single-node"
+version: '3.4'
+services:
+  web:
+    build: .
+    restart: always
+    depends_on:
+      - elasticsearch
+      - redis
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+  redis:
+    image: redis
+    expose:
+      - 6379
+  elasticsearch:
+    image: elasticsearch:6.6.2
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "cluster.name=docker-cluster"
+      - "discovery.type=single-node"
