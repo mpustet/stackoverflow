@@ -11,6 +11,9 @@ script:
   - mvn clean package
   - docker-compose up -d
   - mvn clean verify
+  - docker build -t mleenso/stackoverflow .
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push mleenso/stackoverflow
 
 jdk:
   - oraclejdk11
