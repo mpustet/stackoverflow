@@ -12,9 +12,9 @@ services:
   - docker
 
 script:
-  - mvn clean package
+  - mvn clean package | grep -v Download
   - docker-compose up -d
-  - mvn clean verify
+  - mvn clean verify | grep -v Download
   - docker build -t mleenso/stackoverflow .
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push mleenso/stackoverflow
