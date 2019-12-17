@@ -35,7 +35,7 @@ public class ReactiveIT {
         StepVerifier.create(flux)
                 .expectSubscription()
                 .expectNoEvent(Duration.ofMillis(500))
-                .consumeSubscriptionWith(signal -> log.info("First item in step verifier: {}", signal))
+                .consumeNextWith(signal -> log.info("First item in step verifier: {}", signal))
                 .expectNextCount(5)
                 .thenCancel()
                 .verify();
