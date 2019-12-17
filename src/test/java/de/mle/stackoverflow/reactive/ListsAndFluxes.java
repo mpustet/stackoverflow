@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import org.junit.Test;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
@@ -16,13 +17,14 @@ public class ListsAndFluxes {
         List<Integer> a = List.of(1, 2, 3);
         List<Integer> b = List.of(4, 5, 6);
 
-        Stream.of(a, b).parallel()
-                .flatMap(List::stream)
-                .forEach(item -> log.warn("Item in stream {}", item));
 
         Flux.just(a, b).parallel()
                 .flatMap(list -> Flux.fromIterable(list))
                 .subscribe(item -> log.warn("Item in flux {}", item));
+
+        Stream.of(a, b).parallel()
+                .flatMap(List::stream)
+                .forEach(item -> log.warn("Item in stream {}", item));
     }
 
     @Test
