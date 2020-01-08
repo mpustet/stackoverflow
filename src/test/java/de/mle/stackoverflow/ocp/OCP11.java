@@ -16,4 +16,13 @@ public class OCP11 {
                 .peek(n -> System.out.print(n));
         s.forEach(n -> System.out.println(n));
     }
+
+    @Test
+    void varArgs() {
+        System.out.println("Length " + howMany(true, new boolean[2]));
+    }
+
+    private int howMany(boolean b, boolean... b2) {
+        return b2.length;
+    }
 }
