@@ -21,6 +21,6 @@ public class PrometheusEndpointIT {
                 .exchange()
                 .expectStatus().isOk()
                 .returnResult(String.class)
-                .getResponseBody().blockFirst().contains("http_server_requests_seconds_count");
+                .getResponseBody().blockFirst().contains("offer_count");
     }
 }
