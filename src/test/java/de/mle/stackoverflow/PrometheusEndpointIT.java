@@ -21,6 +21,6 @@ public class PrometheusEndpointIT {
                 .exchange()
                 .expectStatus().isOk()
                 .returnResult(String.class)
-                .getResponseBody().blockFirst().contains("offer_count");
+                .getResponseBody().blockFirst().contains("sample_count");
     }
 }

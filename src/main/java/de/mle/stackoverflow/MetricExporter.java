@@ -18,9 +18,9 @@ public class MetricExporter {
     @PostConstruct
     public void count() {
         Gauge
-                .builder("offer-count", () -> new Random().nextInt(10))
+                .builder("sample-count", () -> new Random().nextInt(10))
                 .description("indicates a random offer count")
-                .tags("character", "random")
+                .tags("app", "stackoverflow", "stage", "prod", "host", "http://localhost")
                 .register(registry);
     }
 }
