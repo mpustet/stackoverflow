@@ -7,6 +7,13 @@ import static org.mockito.Mockito.*;
 
 public class MockitoFeatureTest {
     @Test
+    public void showMocking() {
+        Greeter greeter = mock(Greeter.class);
+        when(greeter.greet()).thenReturn("Bye!");
+        assertThat(greeter.greet()).isEqualTo("Bye!");
+    }
+
+    @Test
     public void showDoReturn() {
         Greeter greeter = mock(Greeter.class);
         doReturn("Bye!").when(greeter).greet();
