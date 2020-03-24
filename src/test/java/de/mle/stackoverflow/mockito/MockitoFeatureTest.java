@@ -11,6 +11,7 @@ public class MockitoFeatureTest {
         Greeter greeter = mock(Greeter.class);
         when(greeter.greet()).thenReturn("Bye!");
         assertThat(greeter.greet()).isEqualTo("Bye!");
+        
     }
 
     @Test
