@@ -2,13 +2,20 @@ package de.mle.stackoverflow;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import lombok.AccessLevel;
+import lombok.Getter;
 
 import org.junit.Ignore;
 import org.junit.Test;
 
 public class RestAssuredTest {
+
+    @Getter(AccessLevel.NONE)
+    int a;
+
     @Test
     @Ignore
+
     public void getSpreadSheet() {
         RestAssured.baseURI =
                 "https://st8.tuiprjuat.co.uk/searchpanel/departureairport/th" +
