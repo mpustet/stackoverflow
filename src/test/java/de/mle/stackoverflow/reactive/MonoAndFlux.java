@@ -5,10 +5,12 @@ import java.util.function.Supplier;
 
 import org.junit.Test;
 
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
+@Slf4j
 public class MonoAndFlux {
     private Service service = new Service();
 
@@ -42,6 +44,30 @@ public class MonoAndFlux {
                 .expectNext(3, 4) // …and expect the last both items
                 .expectComplete() // Assert the completion signal.
                 .verify(Duration.ofMillis(100)); // Everything takes max. 100 ms in real-time!
+    }
+
+    @Test
+    public void doFinallyAndDoOnSuccess() {
+        Mono.just(1)
+                .doOnSuccess(it -> log.warn("onSuccess {}", it))
+                .doFinally(it -> log.warn("finally {}", it))
+                .subscribe();
+    }
+
+    @Test
+    public void showRetryOnError() throws InterruptedException {
+        Flux.interval(Duration.ofMillis(250))
+                .map(input -> {
+                    if (input < 3) {
+                        return "tick " + input;
+                    }
+                    throw new RuntimeException("boom");
+                })
+                .retry(1)
+                .elapsed()
+                .subscribe(System.out::println, System.err::println);
+
+        Thread.sleep(2100);
     }
 
     class Service {
