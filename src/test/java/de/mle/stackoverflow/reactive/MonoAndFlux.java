@@ -3,7 +3,7 @@ package de.mle.stackoverflow.reactive;
 import java.time.Duration;
 import java.util.function.Supplier;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;

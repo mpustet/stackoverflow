@@ -1,12 +1,12 @@
 package de.mle.stackoverflow.jackson;
 
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.time.Duration;
 import java.util.Random;
 import java.util.stream.Stream;
+
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import reactor.core.publisher.Flux;
 

@@ -11,18 +11,18 @@ import static org.springframework.restdocs.webtestclient.WebTestClientRestDocume
 
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.restdocs.JUnitRestDocumentation;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.restdocs.RestDocumentationContextProvider;
+import org.springframework.restdocs.RestDocumentationExtension;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import de.mle.stackoverflow.jackson.Project;
@@ -31,18 +31,16 @@ import de.mle.stackoverflow.jackson.WorkPackageEstimateType;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 
-@RunWith(SpringRunner.class)
+@ExtendWith({ RestDocumentationExtension.class, SpringExtension.class })
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class StackOverflowControllerIT {
-    @Rule
-    public final JUnitRestDocumentation restDocumentation = new JUnitRestDocumentation();
     @LocalServerPort
     private int port;
     @Autowired
     private WebTestClient webTestClient;
 
-    @Before
-    public void initRestDocs() {
+    @BeforeEach
+    public void initRestDocs(RestDocumentationContextProvider restDocumentation) {
         webTestClient = webTestClient.mutate()
                 .filter(documentationConfiguration(restDocumentation)
                         .operationPreprocessors()

@@ -1,12 +1,12 @@
 package de.mle.stackoverflow;
 
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import lombok.AccessLevel;
 import lombok.Getter;
-
-import org.junit.Ignore;
-import org.junit.Test;
 
 public class RestAssuredTest {
 
@@ -14,8 +14,7 @@ public class RestAssuredTest {
     int a;
 
     @Test
-    @Ignore
-
+    @Disabled
     public void getSpreadSheet() {
         RestAssured.baseURI =
                 "https://st8.tuiprjuat.co.uk/searchpanel/departureairport/th" +

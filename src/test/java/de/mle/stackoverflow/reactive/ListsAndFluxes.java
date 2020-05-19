@@ -3,8 +3,7 @@ package de.mle.stackoverflow.reactive;
 import java.util.List;
 import java.util.stream.Stream;
 
-import org.junit.Test;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.junit.jupiter.api.Test;
 
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;

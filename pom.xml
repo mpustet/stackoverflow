@@ -14,7 +14,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.2.6.RELEASE</version>
+		<version>2.3.0.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
@@ -26,6 +26,18 @@
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -83,6 +95,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>io.projectreactor</groupId>
@@ -105,10 +123,15 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.tngtech.java</groupId>
-			<artifactId>junit-dataprovider</artifactId>
-			<version>1.13.1</version>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
 			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.restdocs</groupId>
@@ -166,13 +189,13 @@
 				<artifactId>docker-maven-plugin</artifactId>
 				<version>0.28.0</version>
 				<configuration>
-					<showLogs>true</showLogs>
+					<showLogs>false</showLogs>
 					<verbose>true</verbose>
 					<removeVolumes>true</removeVolumes>
 					<allContainers>true</allContainers>
 					<images>
 						<image>
-							<name>elasticsearch:6.6.2</name>
+							<name>elasticsearch:7.6.2</name>
 							<alias>elasticsearch</alias>
 							<run>
 								<ports>
@@ -187,6 +210,15 @@
 								<wait>
 									<time>10000</time>
 								</wait>
+							</run>
+						</image>
+						<image>
+							<name>mongo</name>
+							<alias>mongo</alias>
+							<run>
+								<ports>
+									<port>27017:27017</port>
+								</ports>
 							</run>
 						</image>
 					</images>

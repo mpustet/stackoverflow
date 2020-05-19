@@ -2,10 +2,10 @@ package de.mle.stackoverflow.rbtree;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
-@Ignore
+@Disabled
 public class RedBlackTreeTesterTest {
 	private RedBlackTreeTester tester = new RedBlackTreeTester();
 
