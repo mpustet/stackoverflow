@@ -19,6 +19,10 @@ public class JsonController {
 
     @GetMapping(path = "/flux", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
     public Flux<Integer> getFlux() {
+        Flux
+                .range(1, 100)
+                .delayElements(Duration.ofSeconds(1))
+                .subscribe(System.out::println);
         return Flux
                 .fromStream(Stream.generate(() -> new Random().nextInt()))
                 .delayElements(Duration.ofMillis(500));
